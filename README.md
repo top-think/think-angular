@@ -40,7 +40,7 @@
 注: 一个标签上可以使用多个模板属性, 属性有前后顺序要求, 所以要注意属性的顺序, 在单标签上使用模板属性时一定要使用<code>/></code>结束, 如 <code>&lt;input php-if="$is_download" type="button" value="下载" />, &lt;img php-if="$article['pic']" src="{&dollar;article.pic}" /></code> 等等, 具体可参考后面章节的解析结果  
 
 ## 文档
-看云文档托管平台: http://www.kancloud.cn/shuai/think-angular
+看云文档托管平台: http://www.kancloud.cn/shuai/php-angular
 
 ## 示例代码
 参考/test目录 
