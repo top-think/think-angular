@@ -13,6 +13,7 @@ namespace think\view\driver;
 use think\Config;
 use think\Request;
 use think\App;
+use think\angular\Angular as AngularTpl;
 
 class Angular {
 
@@ -28,7 +29,7 @@ class Angular {
             'tpl_cache_suffix' => Config::get('view.engine_config.cache') ? : '.php',
             'attr'             => 'php-',
         ];
-        $this->template = new \Angular($this->config);
+        $this->template = new AngularTpl($this->config);
         // 初始化模板编译存储器
         $storage       = Config::get('compile_type') ? : '\\think\\template\\driver\\File';
         $this->storage = new $storage();
