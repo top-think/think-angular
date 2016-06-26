@@ -28,7 +28,7 @@ Angular::extend('dump', function ($content, $param, $angular) {
     unset($param[0], $param[1], $param[2], $param[3], $param[4], $param[5]);
     $new .= '<?php var_dump(' . $param['value'] . ');  ?>';
     // var_dump($angular->config);
-    $new .= '<pre>';
+    $new .= '</pre>';
     return str_replace($old, $new, $content);
 });
 

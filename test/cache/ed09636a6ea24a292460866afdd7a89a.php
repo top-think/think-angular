@@ -18,7 +18,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <?php foreach ($navs as $nav) { ?><li  class="<?php echo $nav["title"] == $title ? 'active' : ''; ?>">
+                    <?php foreach ($navs as $nav) { ?><li class="<?php echo $nav["title"] == $title ? 'active' : ''; ?>">
                         <a href="<?php echo $nav["url"]; ?>"><?php echo $nav["title"]; ?></a>
                     </li><?php } ?>
                 </ul>
@@ -38,32 +38,32 @@
             </div>
         </div>
     </nav>
-    <div  class="container">
+    <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <?php foreach ($list as $pic) { ?><div class="item" >
+            <?php foreach ($list as $pic) { ?><div class="item">
                 <h2><?php echo $pic["title"]; ?></h2>
                 <p>
                     <img src="<?php echo $pic["pic"]; ?>" style=" max-width: 80%;" alt="">
                 </p>
                 <hr />
-            </div><?php }  if ($pagecount > 1) { ?><nav >
+            </div><?php }  if ($pagecount > 1) { ?><nav>
     <ul class="pagination">
-        <?php if ($p > 1) { ?><li >
+        <?php if ($p > 1) { ?><li>
             <a href="<?php echo $page(1); ?>">首页</a>
-        </li><?php }  if ($p > 1) { ?><li >
+        </li><?php }  if ($p > 1) { ?><li>
             <a href="<?php echo $page($p - 1); ?>">上一页</a>
-        </li><?php }  if ($p - 4 > 2) { ?><li >
+        </li><?php }  if ($p - 4 > 2) { ?><li>
             <!-- 这里是 往前十页, 如果第一页显示了, 就隐藏这个'...' 按钮 -->
             <a href="<?php echo $page($p - 10 < 1 ? 1 : $p - 10); ?>"><span>...</span></a>
-        </li><?php }  for ($i = $p - 4; $i <= $p + 4; $i++) {  if ($i > 0 && $i <= $pagecount) { ?><li   class="<?php echo $p == $i ? 'disabled':""; ?>">
-            <?php if ($p != $i) { ?><a  href="<?php echo $page($i); ?>"><?php echo $i; ?></a><?php }  if ($p == $i) { ?><span ><?php echo $i; ?></span><?php } ?>
-        </li><?php }  }  if ($p + 4 < $pagecount) { ?><li >
+        </li><?php }  for ($i = $p - 4; $i <= $p + 4; $i++) {  if ($i > 0 && $i <= $pagecount) { ?><li class="<?php echo $p == $i ? 'disabled':""; ?>">
+            <?php if ($p != $i) { ?><a href="<?php echo $page($i); ?>"><?php echo $i; ?></a><?php }  if ($p == $i) { ?><span><?php echo $i; ?></span><?php } ?>
+        </li><?php }  }  if ($p + 4 < $pagecount) { ?><li>
             <!-- 这里是 后十页, 如果最后一页显示了, 就隐藏这个'...' 按钮 -->
             <a href="<?php echo $page($p + 10 > $pagecount ? $pagecount : $p + 10); ?>"><span>...</span></a>
-        </li><?php }  if ($p < $pagecount) { ?><li >
+        </li><?php }  if ($p < $pagecount) { ?><li>
             <a href="<?php echo $page($p + 1); ?>">下一页</a>
-        </li><?php }  if ($p < $pagecount) { ?><li >
+        </li><?php }  if ($p < $pagecount) { ?><li>
             <a href="<?php echo $page($pagecount); ?>">尾页 <?php echo $pagecount; ?></a>
         </li><?php } ?>
     </ul>
@@ -73,7 +73,7 @@
         <div class="col-md-4">
         	<h4>图片分类</h4>
             <ul>
-                <?php foreach ($category as $cate) { ?><li >
+                <?php foreach ($category as $cate) { ?><li>
                     <a href="#cate=<?php echo $cate["id"]; ?>"><?php echo $cate["title"]; ?></a>
                 </li><?php } ?>
             </ul>

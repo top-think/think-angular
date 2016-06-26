@@ -10,9 +10,9 @@
             <br>
             如: 
             <br>
-            <code>&lt;input php-if="$is_download" type="button" value="下载" /></code>
+            <code><input php-literal="code" php-if="$is_download" type="button" value="下载" /></code>
             <br>
-            <code>&lt;img php-if="$article['pic']" src="{&dollar;article.pic}" /></code>
+            <code><img php-literal="code" php-if="$article['pic']" src="{&dollar;article.pic}" /></code>
             <br>
             具体可参考后面的解析结果.
         </p>
@@ -65,6 +65,12 @@
 
             <div php-init="$i = 0" php-inc="$i" php-inc="$i">{$i}</div>
             <div php-dec="$i">{$i}</div>
+            
+            <h4>原样输出</h4>
+            <div php-literal="">{$title}</div>
+            <div php-literal="code">{$title}</div>
+            <br />
+            <php php-literal="code">{title} {$content}</php>
         </div>
         <div class="col-md-4">
             <h4>无限级菜单输出</h4>

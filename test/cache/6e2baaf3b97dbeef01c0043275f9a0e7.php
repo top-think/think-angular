@@ -18,7 +18,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <?php foreach ($navs as $nav) { ?><li  class="<?php echo $nav["title"] == $title ? 'active' : ''; ?>">
+                    <?php foreach ($navs as $nav) { ?><li class="<?php echo $nav["title"] == $title ? 'active' : ''; ?>">
                         <a href="<?php echo $nav["url"]; ?>"><?php echo $nav["title"]; ?></a>
                     </li><?php } ?>
                 </ul>
@@ -38,7 +38,7 @@
             </div>
         </div>
     </nav>
-    <div  class="container">
+    <div class="container">
     <div class="jumbotron">
         <p>
             如果对Think Angular有好的建议, 可以在此处直接提交, 我将会收到一封邮件, 将根据建议优化模板引擎.

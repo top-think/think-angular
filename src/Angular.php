@@ -25,6 +25,7 @@ class Angular
     public $tpl_var        = array(); // 模板变量列表
     public $tpl_file       = ''; // 当前要解析的模板文件
     public $tpl_block      = ''; // 模板继承缓存的block
+    public $tpl_literal    = [];
     public static $extends = array(); // 扩展解析规则
 
     public function __construct($config)
@@ -457,6 +458,40 @@ class Angular
     }
 
     /**
+     * 原样输出解析, 先把代码替换为 #xxx#的形式
+     * @return string
+     */
+    public function parseLiteral($content, $match)
+    {
+        $key                     = '#' . md5($match['html']) . '#';
+        $html = self::removeExp($match['html'], $match['exp']);
+        switch ($match['value']) {
+            case 'code':
+                $html = str_replace('<', '&lt;', $html);
+                break;
+            
+            default :
+                
+                break;
+        }
+        $this->tpl_literal[$key] = $html;
+        return str_replace($match['html'], $key, $content);
+    }
+
+    /**
+     * 原样输出反解析, 把代码还原
+     * @param type $content
+     * @return type
+     */
+    public function unparseLiteral($content)
+    {
+        foreach ($this->tpl_literal as $key => $literal) {
+            $content = str_replace($key, $literal, $content);
+        }
+        return $content;
+    }
+
+    /**
      * 解析普通变量和函数{$title}{:function_name($var)}
      * @param string $content 源模板内容
      * @return string 解析后的模板内容
@@ -475,11 +510,15 @@ class Angular
         $content = preg_replace('/\{(\$.*?)\}/', '<?php echo \1; ?>', $content);
         $content = preg_replace('/\{\:(.*?)\}/', '<?php echo \1; ?>', $content);
 
+        // 合并php代码结束符号和开始符号
+        $content = preg_replace('/\?>[\s\n]*<\?php/', '', $content);
+
+        // 处理原样输出
+        $content = $this->unparseLiteral($content);
+
         // 过滤<php></php>标签, 保留标签之间的内容
         $content = preg_replace('/\<\/?php[^>]*>/', '', $content);
 
-        // 合并php代码结束符号和开始符号
-        $content = preg_replace('/\?>[\s\n]*<\?php/', '', $content);
         return $content;
     }
 
@@ -509,7 +548,7 @@ class Angular
      */
     public static function removeExp($tag, $exp, $limit = 1)
     {
-        return preg_replace('/' . preg_quote($exp) . '/', '', $tag, $limit);
+        return preg_replace('/\s*' . preg_quote($exp) . '/', '', $tag, $limit);
     }
 
     /**

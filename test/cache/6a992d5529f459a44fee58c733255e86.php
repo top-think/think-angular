@@ -18,7 +18,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <?php foreach ($navs as $nav) { ?><li  class="<?php echo $nav["title"] == $title ? 'active' : ''; ?>">
+                    <?php foreach ($navs as $nav) { ?><li class="<?php echo $nav["title"] == $title ? 'active' : ''; ?>">
                         <a href="<?php echo $nav["url"]; ?>"><?php echo $nav["title"]; ?></a>
                     </li><?php } ?>
                 </ul>
@@ -38,7 +38,7 @@
             </div>
         </div>
     </nav>
-    <div  class="container">
+    <div class="container">
     <div class="jumbotron">
         <h1>Hello Think Angular</h1>
         <p>
@@ -75,37 +75,37 @@
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
-                <?php if ($list) {  foreach ($list as $user) { ?><tr  >
+                <?php if ($list) {  foreach ($list as $user) { ?><tr>
                     <td><?php echo $user["id"]; ?></td>
                     <td><?php echo $user["name"]; ?></td>
                     <td><?php echo $user["email"]; ?></td>
                     <td>
-                        <?php switch ($user['status']) {  case 1: ?><span >正常</span><?php break;  case 0: ?><span >已禁用</span><?php break;  case -1: ?><span >已删除</span><?php break;  } ?>
+                        <?php switch ($user['status']) {  case 1: ?><span>正常</span><?php break;  case 0: ?><span>已禁用</span><?php break;  case -1: ?><span>已删除</span><?php break;  } ?>
                     </td>
                     <td>
-                        <?php if ($user['status'] === 1) { ?><a   href="javascript:void(0);" class="btn btn-xs btn-warning">禁用</a><?php echo ' ';  }  if ($user['status'] === 0) { ?><a   href="javascript:void(0);" class="btn btn-xs btn-primary">启用</a><?php echo ' ';  }  if ($user['status'] >= 0) { ?><a   href="javascript:void(0);" class="btn btn-xs btn-danger">删除</a><?php echo ' ';  }  if ($user['status'] == -1) { ?><a   href="javascript:void(0);" class="btn btn-xs btn-primary">恢复</a><?php echo ' ';  } ?>
+                        <?php if ($user['status'] === 1) { ?><a href="javascript:void(0);" class="btn btn-xs btn-warning">禁用</a><?php echo ' ';  }  if ($user['status'] === 0) { ?><a href="javascript:void(0);" class="btn btn-xs btn-primary">启用</a><?php echo ' ';  }  if ($user['status'] >= 0) { ?><a href="javascript:void(0);" class="btn btn-xs btn-danger">删除</a><?php echo ' ';  }  if ($user['status'] == -1) { ?><a href="javascript:void(0);" class="btn btn-xs btn-primary">恢复</a><?php echo ' ';  } ?>
                     </td>
-                </tr><?php }  }  else { ?><tr >
+                </tr><?php }  }  else { ?><tr>
                     <td colspan="3" class="text-center">没有数据</td>
                 </tr><?php } ?>
             </table>
-            <?php if ($pagecount > 1) { ?><nav >
+            <?php if ($pagecount > 1) { ?><nav>
     <ul class="pagination">
-        <?php if ($p > 1) { ?><li >
+        <?php if ($p > 1) { ?><li>
             <a href="<?php echo $page(1); ?>">首页</a>
-        </li><?php }  if ($p > 1) { ?><li >
+        </li><?php }  if ($p > 1) { ?><li>
             <a href="<?php echo $page($p - 1); ?>">上一页</a>
-        </li><?php }  if ($p - 4 > 2) { ?><li >
+        </li><?php }  if ($p - 4 > 2) { ?><li>
             <!-- 这里是 往前十页, 如果第一页显示了, 就隐藏这个'...' 按钮 -->
             <a href="<?php echo $page($p - 10 < 1 ? 1 : $p - 10); ?>"><span>...</span></a>
-        </li><?php }  for ($i = $p - 4; $i <= $p + 4; $i++) {  if ($i > 0 && $i <= $pagecount) { ?><li   class="<?php echo $p == $i ? 'disabled':""; ?>">
-            <?php if ($p != $i) { ?><a  href="<?php echo $page($i); ?>"><?php echo $i; ?></a><?php }  if ($p == $i) { ?><span ><?php echo $i; ?></span><?php } ?>
-        </li><?php }  }  if ($p + 4 < $pagecount) { ?><li >
+        </li><?php }  for ($i = $p - 4; $i <= $p + 4; $i++) {  if ($i > 0 && $i <= $pagecount) { ?><li class="<?php echo $p == $i ? 'disabled':""; ?>">
+            <?php if ($p != $i) { ?><a href="<?php echo $page($i); ?>"><?php echo $i; ?></a><?php }  if ($p == $i) { ?><span><?php echo $i; ?></span><?php } ?>
+        </li><?php }  }  if ($p + 4 < $pagecount) { ?><li>
             <!-- 这里是 后十页, 如果最后一页显示了, 就隐藏这个'...' 按钮 -->
             <a href="<?php echo $page($p + 10 > $pagecount ? $pagecount : $p + 10); ?>"><span>...</span></a>
-        </li><?php }  if ($p < $pagecount) { ?><li >
+        </li><?php }  if ($p < $pagecount) { ?><li>
             <a href="<?php echo $page($p + 1); ?>">下一页</a>
-        </li><?php }  if ($p < $pagecount) { ?><li >
+        </li><?php }  if ($p < $pagecount) { ?><li>
             <a href="<?php echo $page($pagecount); ?>">尾页 <?php echo $pagecount; ?></a>
         </li><?php } ?>
     </ul>
@@ -113,15 +113,21 @@
 
             
             <h4>自定义解析规则</h4>
-            <pre><?php var_dump($navs);  ?><pre>
+            <pre><?php var_dump($navs);  ?></pre>
 
-            <?php $i = 0;  $i++;  $i++; ?><div   ><?php echo $i; ?></div>
-            <?php $i--; ?><div ><?php echo $i; ?></div>
+            <?php $i = 0;  $i++;  $i++; ?><div><?php echo $i; ?></div>
+            <?php $i--; ?><div><?php echo $i; ?></div>
+            
+            <h4>原样输出</h4>
+            <div>{$title}</div>
+            &lt;div>{$title}&lt;/div>
+            <br />
+            &lt;php>{title} {$content}&lt;/php>
         </div>
         <div class="col-md-4">
             <h4>无限级菜单输出</h4>
-            <?php echo_menu($menus);  function echo_menu($menus) { ?><ul  >
-                <?php foreach ($menus as $menu) { ?><li >
+            <?php echo_menu($menus);  function echo_menu($menus) { ?><ul>
+                <?php foreach ($menus as $menu) { ?><li>
                     <?php echo $menu["title"];  if (isset($menu['sub'])) {  echo_menu($menu['sub']);  } ?>
                 </li><?php } ?>
             </ul><?php } ?>
