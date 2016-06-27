@@ -32,7 +32,6 @@ class Angular
             'tpl_cache_suffix' => Config::get('template.cache_view_suffix') ? : '.php',
             'attr'             => 'php-',
         ];
-        dump($this->config);
         $this->template = new AngularTpl($this->config);
         // 初始化模板编译存储器
         $this->storage  = new Storage();
