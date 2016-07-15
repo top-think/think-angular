@@ -10,7 +10,6 @@
 
 namespace think\view\driver;
 
-use think\Config;
 use think\Request;
 use think\App;
 use think\angular\Angular as AngularTpl;
@@ -25,13 +24,16 @@ class Angular
 
     public function __construct($config = [])
     {
-        $this->config   = [
+        $default = [
+            'debug'            => App::$debug,
             'tpl_path'         => App::$modulePath . 'view' . DS,
-            'tpl_suffix'       => '.' . (Config::get('template.view_suffix') ? : 'html'),
+            'tpl_suffix'       => '.html',
             'tpl_cache_path'   => RUNTIME_PATH . 'temp' . DS,
-            'tpl_cache_suffix' => Config::get('template.cache_view_suffix') ? : '.php',
+            'tpl_cache_suffix' => '.php',
             'attr'             => 'php-',
         ];
+
+        $this->config   = array_merge($default, $config);
         $this->template = new AngularTpl($this->config);
         // 初始化模板编译存储器
         $this->storage  = new Storage();
@@ -76,16 +78,29 @@ class Angular
      * @param string $template 模版地址
      * @return string
      */
-    public function parseTemplatePath($template)
+    public function parseTemplatePath($template = '')
     {
+        $request = Request::instance();
         if (!$template) {
-            $request    = Request::instance();
+            // 没有传模版名
             $controller = $request->controller();
             $action     = $request->action();
             $template   = $controller . DS . $action;
             $template   = str_replace('.', DS, $template);
+            return $template;
+        } elseif (strpos($template, '/') === false) {
+            // 只传了操作名
+            $template = $request->controller() . DS . $template;
+            $template = str_replace('.', DS, $template);
+            return $template;
         }
+        // 默认原样返回
         return $template;
+    }
+
+    public function __call($method, $params)
+    {
+        return call_user_func_array([$this->template, $method], $params);
     }
 
 }
