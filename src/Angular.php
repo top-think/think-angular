@@ -18,9 +18,9 @@ class Angular
         'tpl_path'         => './view/', // 模板根目录
         'tpl_suffix'       => '.html', // 模板后缀
         'tpl_cache_path'   => './cache/', // 模板缓存目录
-        'tpl_cache_suffix' => '.php', // 模板后缀
-        'attr'             => 'php-', // 标签前缀
-        'max_tag'          => 10000, // 标签的最大解析次数
+        'tpl_cache_suffix' => '.php', // 模板缓存后缀
+        'directive_prefix' => 'php-', // 指令前缀
+        'directive_max'    => 10000, // 指令的最大解析次数
     );
     public $tpl_var        = array(); // 模板变量列表
     public $tpl_file       = ''; // 当前要解析的模板文件
@@ -148,22 +148,21 @@ class Angular
      */
     public function parse($content)
     {
-        $num = $this->config['max_tag'];
+        $num = $this->config['directive_max'];
         while (true) {
             $sub = $this->match($content);
             if ($sub) {
-                $method = 'parse' . $sub['attr'];
+                $method = 'parse' . $sub['directive'];
                 if (method_exists($this, $method)) {
                     // 系统解析规则
                     $content = $this->$method($content, $sub);
-                } elseif (isset(self::$extends[$sub['attr']])) {
+                } elseif (isset(self::$extends[$sub['directive']])) {
                     // 扩展解析规则
-                    $call    = self::$extends[$sub['attr']];
+                    $call    = self::$extends[$sub['directive']];
                     $content = $call($content, $sub, $this);
                 } else {
                     // 未找到解析规则
-                    throw new Exception("模板属性" . $this->config['attr'] . $sub['attr'] . '没有对应的解析规则');
-                    break;
+                    throw new Exception("模板属性" . $this->config['directive_prefix'] . $sub['directive'] . '没有对应的解析规则');
                 }
             } else {
                 break;
@@ -179,7 +178,7 @@ class Angular
     /**
      * 解析include属性
      * @param string $content 源模板内容
-     * @param array $match 一个正则匹配结果集, 包含 html, value, attr
+     * @param array $match 一个正则匹配结果集, 包含 html, value, directive
      * @return string 解析后的模板内容
      */
     public function parseInclude($content, $match)
@@ -463,15 +462,15 @@ class Angular
      */
     public function parseLiteral($content, $match)
     {
-        $key                     = '#' . md5($match['html']) . '#';
+        $key  = '#' . md5($match['html']) . '#';
         $html = self::removeExp($match['html'], $match['exp']);
         switch ($match['value']) {
             case 'code':
                 $html = str_replace('<', '&lt;', $html);
                 break;
-            
-            default :
-                
+
+            default:
+
                 break;
         }
         $this->tpl_literal[$key] = $html;
@@ -554,14 +553,14 @@ class Angular
     /**
      * 获取第一个表达式
      * @param string $content 要解析的模板内容
-     * @param string $attr 属性名
+     * @param string $directive 指令名称
      * @param string $val 属性值
      * @return array 一个匹配的标签数组
      */
-    public function match($content, $attr = '[\w]+', $val = '[^\4]*?')
+    public function match($content, $directive = '[\w]+', $val = '[^\4]*?')
     {
-        $reg   = '#<(?<tag>[\w]+)[^>]*?\s(?<exp>' . preg_quote($this->config['attr'])
-                . '(?<attr>' . $attr
+        $reg   = '#<(?<tag>[\w]+)[^>]*?\s(?<exp>' . preg_quote($this->config['directive_prefix'])
+                . '(?<directive>' . $directive
                 . ')=([\'"])(?<value>' . $val . ')\4)[^>]*>#s';
         $match = null;
         if (!preg_match($reg, $content, $match)) {

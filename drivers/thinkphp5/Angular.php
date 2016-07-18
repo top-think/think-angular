@@ -25,12 +25,13 @@ class Angular
     public function __construct($config = [])
     {
         $default = [
-            'debug'            => App::$debug,
-            'tpl_path'         => App::$modulePath . 'view' . DS,
-            'tpl_suffix'       => '.html',
-            'tpl_cache_path'   => RUNTIME_PATH . 'temp' . DS,
-            'tpl_cache_suffix' => '.php',
-            'attr'             => 'php-',
+            'debug'            => App::$debug, // 是否开启调试模式
+            'tpl_path'         => App::$modulePath . 'view' . DS, // 模板目录
+            'tpl_suffix'       => '.html', // 模板后缀
+            'tpl_cache_path'   => RUNTIME_PATH . 'temp' . DS, // 模板缓存目录
+            'tpl_cache_suffix' => '.php', // 模板缓存文件后缀
+            'directive_prefix' => 'php-', // 指令前缀
+            'directive_max'    => 10000, // 指令的最大解析次数
         ];
 
         $this->config   = array_merge($default, $config);
