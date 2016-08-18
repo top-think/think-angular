@@ -522,6 +522,40 @@ class Angular
     }
 
     /**
+     * 解析php-selected指令, 方便选择框做自动选中功能
+     * @return string
+     */
+    public function parseSelected($content, $match)
+    {
+        $selected = self::replaceExp($match['html'], $match['exp'], ' selected="selected" ');
+        $other    = self::removeExp($match['html'], $match['exp']);
+
+        $new = "<?php if ({$match['value']}) { ?>";
+        $new .= $selected;
+        $new .= '<?php } else { ?>';
+        $new .= $other;
+        $new .= '<?php } ?>';
+        return str_replace($match['html'], $new, $content);
+    }
+
+    /**
+     * 解析php-checked指令, 方便复选框做自动选中功能
+     * @return string
+     */
+    public function parseChecked($content, $match)
+    {
+        $selected = self::replaceExp($match['html'], $match['exp'], ' checked="checked" ');
+        $other    = self::removeExp($match['html'], $match['exp']);
+
+        $new = "<?php if ({$match['value']}) { ?>";
+        $new .= $selected;
+        $new .= '<?php } else { ?>';
+        $new .= $other;
+        $new .= '<?php } ?>';
+        return str_replace($match['html'], $new, $content);
+    }
+
+    /**
      * 扩展解析规则
      * @param string|array $extends 属性名称
      * @param mixed $callback 回调方法
@@ -541,13 +575,26 @@ class Angular
     /**
      * 从标签中移除指定属性表达式
      * @param string $tag 标签
-     * @param string $exp 属性表达式
+     * @param string $exp 指令
      * @param int $limit 替换次数, 默认只替换一次
      * @return string 替换后的标签
      */
     public static function removeExp($tag, $exp, $limit = 1)
     {
-        return preg_replace('/\s*' . preg_quote($exp) . '/', '', $tag, $limit);
+        return self::replaceExp($tag, $exp, '', $limit);
+    }
+
+    /**
+     * 从标签中移除指定属性表达式
+     * @param string $tag 标签
+     * @param string $exp 指令
+     * @param string $new 新的属性表达式
+     * @param int $limit 替换次数, 默认只替换一次
+     * @return string 替换后的标签
+     */
+    public static function replaceExp($tag, $exp, $new, $limit = 1)
+    {
+        return preg_replace('/\s*' . preg_quote($exp) . '/', $new, $tag, $limit);
     }
 
     /**

@@ -59,14 +59,44 @@
                 </tr>
             </table>
             <nav php-include="page"></nav>
-            
-            <h4>自定义解析规则</h4>
+
+            <h2>自动选中: php-selected</h2>
+            <select class="form-control" php-init="$p = isset($_GET['p']) ? $_GET['p'] : 1">
+                <option php-for="$i = 1; $i <= 50; $i++" php-selected="$p == $i" value="{$i}">第{$i}页</option>
+            </select>
+
+            <h2>自动勾选: php-checked </h2>
+            <div
+                class="form-control"
+                php-init="$all_hobby = ['html','css','js','php', 'mysql', 'linux']"
+                php-init="$user_hobby = ['linux','css','js','php']">
+                技能:
+                <label class="checkbox-inline" php-repeat="$all_hobby as $hobby">
+                    <input
+                        type="checkbox"
+                        name="hobby"
+                        value="{$hobby}"
+                        php-checked="in_array($hobby, $user_hobby)" /> {$hobby}
+                </label>
+            </div>
+            <br />
+            <div class="form-control" php-init="$user_sex = 1">
+                性别: 
+                <label class="radio-inline">
+                    <input type="radio" name="sex" value="0" php-checked="$user_sex === 0"  /> 女
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="sex" value="1" php-checked="$user_sex === 1"  /> 男
+                </label>
+            </div>
+
+            <h2>自定义解析规则</h2>
             <div php-dump="$navs"></div>
 
             <div php-init="$i = 0" php-inc="$i" php-inc="$i">{$i}</div>
             <div php-dec="$i">{$i}</div>
-            
-            <h4>原样输出</h4>
+
+            <h2>原样输出</h2>
             <div php-literal="">{$title}</div>
             <div php-literal="code">{$title}</div>
             <br />

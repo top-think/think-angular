@@ -111,14 +111,44 @@
     </ul>
 </nav><?php } ?>
 
-            
-            <h4>自定义解析规则</h4>
+
+            <h2>自动选中: php-selected</h2>
+            <?php $p = isset($_GET['p']) ? $_GET['p'] : 1; ?><select class="form-control">
+                <?php for ($i = 1; $i <= 50; $i++) {  if ($p == $i) { ?><option selected="selected"  value="<?php echo $i; ?>">第<?php echo $i; ?>页</option><?php } else { ?><option value="<?php echo $i; ?>">第<?php echo $i; ?>页</option><?php }  } ?>
+            </select>
+
+            <h2>自动勾选: php-checked </h2>
+            <?php $all_hobby = ['html','css','js','php', 'mysql', 'linux'];  $user_hobby = ['linux','css','js','php']; ?><div
+                class="form-control">
+                技能:
+                <?php foreach ($all_hobby as $hobby) { ?><label class="checkbox-inline">
+                    <?php if (in_array($hobby, $user_hobby)) { ?><input
+                        type="checkbox"
+                        name="hobby"
+                        value="<?php echo $hobby; ?>" checked="checked"  /><?php } else { ?><input
+                        type="checkbox"
+                        name="hobby"
+                        value="<?php echo $hobby; ?>" /><?php }  echo $hobby; ?>
+                </label><?php } ?>
+            </div>
+            <br />
+            <?php $user_sex = 1; ?><div class="form-control">
+                性别: 
+                <label class="radio-inline">
+                    <?php if ($user_sex === 0) { ?><input type="radio" name="sex" value="0" checked="checked"   /><?php } else { ?><input type="radio" name="sex" value="0"  /><?php } ?> 女
+                </label>
+                <label class="radio-inline">
+                    <?php if ($user_sex === 1) { ?><input type="radio" name="sex" value="1" checked="checked"   /><?php } else { ?><input type="radio" name="sex" value="1"  /><?php } ?> 男
+                </label>
+            </div>
+
+            <h2>自定义解析规则</h2>
             <pre><?php var_dump($navs);  ?></pre>
 
             <?php $i = 0;  $i++;  $i++; ?><div><?php echo $i; ?></div>
             <?php $i--; ?><div><?php echo $i; ?></div>
-            
-            <h4>原样输出</h4>
+
+            <h2>原样输出</h2>
             <div>{$title}</div>
             &lt;div>{$title}&lt;/div>
             <br />
