@@ -82,16 +82,16 @@ class Angular
     public function parseTemplatePath($template = '')
     {
         $request = Request::instance();
+        $controller = strtolower($request->controller());
+        $action     = $request->action();
         if (!$template) {
             // 没有传模版名
-            $controller = $request->controller();
-            $action     = $request->action();
-            $template   = $controller . DS . $action;
-            $template   = str_replace('.', DS, $template);
+            $template = $controller . DS . $action;
+            $template = str_replace('.', DS, $template);
             return $template;
         } elseif (strpos($template, '/') === false) {
             // 只传了操作名
-            $template = $request->controller() . DS . $template;
+            $template = $controller . DS . $template;
             $template = str_replace('.', DS, $template);
             return $template;
         }
