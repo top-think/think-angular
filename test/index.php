@@ -1,4 +1,5 @@
 <?php
+
 require './common.php';
 
 // 模拟用户列表
@@ -67,6 +68,9 @@ $view->assign('page', function ($p) {
 $view->assign($data);
 $view->assign('start_time', $start_time);
 $view->assign('menus', $menus);
+
+// 测试php-model标签转移双引号
+$view->assign('name', '"php" and "think-angular"');
 
 // 输出解析结果
 $view->display('index');

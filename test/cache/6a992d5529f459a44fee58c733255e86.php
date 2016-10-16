@@ -153,6 +153,15 @@
             &lt;div>{$title}&lt;/div>
             <br />
             &lt;php>{title} {$content}&lt;/php>
+
+            <h2>input数据绑定，自动转义特殊字符</h2>
+            <div>
+                <form action="?" method="post">
+                    <input type="text" name="name" value="<?php echo htmlentities($name); ?>"  />
+                    <input type="submit" value="提交">
+                </form>
+            </div>
+            <p><br ／></p>
         </div>
         <div class="col-md-4">
             <h4>无限级菜单输出</h4>

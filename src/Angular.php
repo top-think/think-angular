@@ -556,6 +556,18 @@ class Angular
     }
 
     /**
+     * 解析php-model指令, 方便做内容编辑功能，value会自动转移特殊字符(htmlentities)， 保证 input的value正确输出
+     * @return string
+     */
+    public function parseModel($content, $match)
+    {
+
+        $new_exp  = ' value="<?php echo htmlentities(' . $match['value'] . '); ?>" ';
+        $new_html = self::replaceExp($match['html'], $match['exp'], $new_exp);
+        return str_replace($match['html'], $new_html, $content);
+    }
+
+    /**
      * 扩展解析规则
      * @param string|array $extends 属性名称
      * @param mixed $callback 回调方法
