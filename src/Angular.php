@@ -162,13 +162,13 @@ class Angular
                     $content = $call($content, $sub, $this);
                 } else {
                     // 未找到解析规则
-                    throw new Exception("模板属性" . $this->config['directive_prefix'] . $sub['directive'] . '没有对应的解析规则');
+                    throw new \Exception("模板属性" . $this->config['directive_prefix'] . $sub['directive'] . '没有对应的解析规则');
                 }
             } else {
                 break;
             }
             if ($num-- <= 0) {
-                throw new Exception('解析出错, 超过了最大属性数');
+                throw new \Exception('解析出错, 超过了最大属性数');
             }
         }
         $content = $this->parseValue($content);
