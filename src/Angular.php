@@ -606,7 +606,7 @@ class Angular
      */
     public static function replaceExp($tag, $exp, $new, $limit = 1)
     {
-        return preg_replace('/\s*' . preg_quote($exp) . '/', $new, $tag, $limit);
+        return preg_replace('/\s*' . preg_quote($exp, '/') . '/', $new, $tag, $limit);
     }
 
     /**
