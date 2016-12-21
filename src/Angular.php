@@ -13,7 +13,7 @@ namespace think\angular;
 class Angular
 {
 
-    public $config         = array(
+    public        $config      = [
         'debug'            => false, // 是否开启调试
         'tpl_path'         => './view/', // 模板根目录
         'tpl_suffix'       => '.html', // 模板后缀
@@ -21,12 +21,12 @@ class Angular
         'tpl_cache_suffix' => '.php', // 模板缓存后缀
         'directive_prefix' => 'php-', // 指令前缀
         'directive_max'    => 10000, // 指令的最大解析次数
-    );
-    public $tpl_var        = array(); // 模板变量列表
-    public $tpl_file       = ''; // 当前要解析的模板文件
-    public $tpl_block      = ''; // 模板继承缓存的block
-    public $tpl_literal    = [];
-    public static $extends = array(); // 扩展解析规则
+    ];
+    public        $tpl_var     = []; // 模板变量列表
+    public        $tpl_file    = ''; // 当前要解析的模板文件
+    public        $tpl_block   = ''; // 模板继承缓存的block
+    public        $tpl_literal = [];
+    public static $extends     = []; // 扩展解析规则
 
     public function __construct($config)
     {
@@ -35,8 +35,8 @@ class Angular
 
     /**
      * 分配模板变量
-     * @param string|array $name 模板变量
-     * @param mixed $value 值
+     * @param string|array $name  模板变量
+     * @param mixed        $value 值
      */
     public function assign($name, $value = null)
     {
@@ -84,9 +84,9 @@ class Angular
     /**
      * 编译模板
      * @param string $tpl_file 模板文件
-     * @param array $tpl_var 模板变量
+     * @param array  $tpl_var  模板变量
      */
-    public function fetch($tpl_file, $tpl_var = array())
+    public function fetch($tpl_file, $tpl_var = [])
     {
         // 缓存文件名文件路径连接上文件的修改时间, 然后计算md5值作为缓存文件名.
         $cache_file = $this->config['tpl_cache_path'] . md5($tpl_file) . $this->config['tpl_cache_suffix'];
@@ -118,9 +118,9 @@ class Angular
     /**
      * 编译模板并输出执行结果
      * @param string $tpl_file 模板文件
-     * @param array $tpl_var 模板变量
+     * @param array  $tpl_var  模板变量
      */
-    public function display($tpl_file, $tpl_var = array())
+    public function display($tpl_file, $tpl_var = [])
     {
         echo $this->fetch($tpl_file, $tpl_var);
     }
@@ -130,14 +130,14 @@ class Angular
      * @param string $tpl_file 模板内容
      * @return string 编译后的php混编代码
      */
-    public function compiler($tpl_file, $tpl_var = array())
+    public function compiler($tpl_file, $tpl_var = [])
     {
         if ($tpl_var) {
             $this->tpl_var = array_merge($this->tpl_var, $tpl_var);
         }
         $content = $this->getTplContent($tpl_file);
         //模板解析
-        $result  = $this->parse($content);
+        $result = $this->parse($content);
         return $result;
     }
 
@@ -178,7 +178,7 @@ class Angular
     /**
      * 解析include属性
      * @param string $content 源模板内容
-     * @param array $match 一个正则匹配结果集, 包含 html, value, directive
+     * @param array  $match   一个正则匹配结果集, 包含 html, value, directive
      * @return string 解析后的模板内容
      */
     public function parseInclude($content, $match)
@@ -186,7 +186,7 @@ class Angular
         $tpl_name = $match['value'];
         if (substr($tpl_name, 0, 1) == '$') {
             //支持加载变量文件名
-            $tpl_name = $this->get(substr($tpl_name, 1));
+            $tpl_name = $this->tpl_var[substr($tpl_name, 1)];
         }
         $array     = explode(',', $tpl_name);
         $parse_str = '';
@@ -569,8 +569,8 @@ class Angular
 
     /**
      * 扩展解析规则
-     * @param string|array $extends 属性名称
-     * @param mixed $callback 回调方法
+     * @param string|array $extends  属性名称
+     * @param mixed        $callback 回调方法
      * @return void
      */
     public static function extend($extends, $callback = null)
@@ -586,9 +586,9 @@ class Angular
 
     /**
      * 从标签中移除指定属性表达式
-     * @param string $tag 标签
-     * @param string $exp 指令
-     * @param int $limit 替换次数, 默认只替换一次
+     * @param string $tag   标签
+     * @param string $exp   指令
+     * @param int    $limit 替换次数, 默认只替换一次
      * @return string 替换后的标签
      */
     public static function removeExp($tag, $exp, $limit = 1)
@@ -598,10 +598,10 @@ class Angular
 
     /**
      * 从标签中移除指定属性表达式
-     * @param string $tag 标签
-     * @param string $exp 指令
-     * @param string $new 新的属性表达式
-     * @param int $limit 替换次数, 默认只替换一次
+     * @param string $tag   标签
+     * @param string $exp   指令
+     * @param string $new   新的属性表达式
+     * @param int    $limit 替换次数, 默认只替换一次
      * @return string 替换后的标签
      */
     public static function replaceExp($tag, $exp, $new, $limit = 1)
@@ -611,16 +611,16 @@ class Angular
 
     /**
      * 获取第一个表达式
-     * @param string $content 要解析的模板内容
+     * @param string $content   要解析的模板内容
      * @param string $directive 指令名称
-     * @param string $val 属性值
+     * @param string $val       属性值
      * @return array 一个匹配的标签数组
      */
     public function match($content, $directive = '[\w]+', $val = '[^\4]*?')
     {
         $reg   = '#<(?<tag>[\w]+)[^>]*?\s(?<exp>' . preg_quote($this->config['directive_prefix'])
-                . '(?<directive>' . $directive
-                . ')=([\'"])(?<value>' . $val . ')\4)[^>]*>#s';
+            . '(?<directive>' . $directive
+            . ')=([\'"])(?<value>' . $val . ')\4)[^>]*>#s';
         $match = null;
         if (!preg_match($reg, $content, $match)) {
             return null;
