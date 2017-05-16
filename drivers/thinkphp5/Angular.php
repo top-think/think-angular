@@ -10,9 +10,9 @@
 
 namespace think\view\driver;
 
-use think\Request;
-use think\App;
 use think\angular\Angular as AngularTpl;
+use think\App;
+use think\Request;
 use think\template\driver\File as Storage;
 
 class Angular
@@ -37,7 +37,7 @@ class Angular
         $this->config   = array_merge($default, $config);
         $this->template = new AngularTpl($this->config);
         // 初始化模板编译存储器
-        $this->storage  = new Storage();
+        $this->storage = new Storage();
     }
 
     /**
@@ -54,7 +54,7 @@ class Angular
 
         // 根据模版文件名定位缓存文件
         $tpl_cache_file = $this->config['tpl_cache_path'] . 'angular_' . md5($template) . '.php';
-        if (App::$debug || !is_file($tpl_cache_file) || !$this->storage->check($tpl_cache_file, 0)) {
+        if ($this->config['debug'] || !is_file($tpl_cache_file) || !$this->storage->check($tpl_cache_file, 0)) {
             // 编译模板内容
             $content = $this->template->compiler($template, $data);
             $this->storage->write($tpl_cache_file, $content);
@@ -81,7 +81,7 @@ class Angular
      */
     public function parseTemplatePath($template = '')
     {
-        $request = Request::instance();
+        $request    = Request::instance();
         $controller = strtolower($request->controller());
         $action     = $request->action();
         if (!$template) {
