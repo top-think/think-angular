@@ -10,12 +10,45 @@
 注: 一个标签上可以使用多个模板指令, 指令有前后顺序要求, 所以要注意属性的顺序, 在单标签上使用模板属性时一定要使用<code>/></code>结束, 如 <code>&lt;input php-if="$is_download" type="button" value="下载" />, &lt;img php-if="$article['pic']" src="{&dollar;article.pic}" /></code> 等等, 具体可参考手册.  
 
 ## 安装方法
-如果你是tp5.0.x 请使用 think-angular的1.0.x版本  
+
+### tp5.0.x版本  
 <code>composer require topthink/think-angular:1.0.*</code>  
+模板配置
+```
+// 修改模板配置: /application/config.php
 
-如果你是tp5.1.x 请使用 think-angular的2.0.x版本
+    'template'              => [
+        // 模板引擎类型 支持 php think Angular 支持扩展
+        'type'             => 'Angular',
+        'debug'            => true, // 是否开启调试模式
+        'tpl_suffix'       => '.html', // 模板后缀
+        'tpl_cache_suffix' => '.php', // 模板缓存文件后缀
+        'directive_prefix' => 'php-', // 指令前缀
+        'directive_max'    => 10000, // 指令的最大解析次数
+    ],
+
+```
+
+### tp5.1.x版本  
 <code>composer require topthink/think-angular:2.0.*</code>  
+```
+// config/template.php
 
+// +----------------------------------------------------------------------
+// | 模板设置
+// +----------------------------------------------------------------------
+
+return [
+    // 模板引擎类型 支持 php think Angular 支持扩展
+    'type'             => 'Angular',
+    'debug'            => true, // 是否开启调试模式
+    'tpl_suffix'       => '.html', // 模板后缀
+    'tpl_cache_suffix' => '.php', // 模板缓存文件后缀
+    'directive_prefix' => 'php-', // 指令前缀
+    'directive_max'    => 10000, // 指令的最大解析次数
+];
+
+```
 ## 开发手册
 看云文档托管平台: http://www.kancloud.cn/shuai/php-angular
 
