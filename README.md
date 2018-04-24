@@ -11,7 +11,29 @@
 
 ## 安装方法
 
-使用composer安装模版引擎方法: <code>composer require topthink/think-angular</code>
+此分支针对tp5.1.x版本  
+使用composer安装模版引擎方法: <code>composer require topthink/think-angular:2.0.x</code>  
+
+### 模板配置
+
+```
+// config/template.php
+
+// +----------------------------------------------------------------------
+// | 模板设置
+// +----------------------------------------------------------------------
+
+return [
+    // 模板引擎类型 支持 php think Angular 支持扩展
+    'type'             => 'Angular',
+    'debug'            => true, // 是否开启调试模式
+    'tpl_suffix'       => '.html', // 模板后缀
+    'tpl_cache_suffix' => '.php', // 模板缓存文件后缀
+    'directive_prefix' => 'php-', // 指令前缀
+    'directive_max'    => 10000, // 指令的最大解析次数
+];
+
+```
 
 ## 开发手册
 看云文档托管平台: http://www.kancloud.cn/shuai/php-angular
