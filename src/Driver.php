@@ -10,7 +10,7 @@
 
 namespace think\view\driver;
 
-use think\angular\Angular as AngularTpl;
+use PHPAngular\Angular as AngularTpl;
 use think\App;
 use think\Request;
 use think\template\driver\File as Storage;
@@ -35,9 +35,26 @@ class Angular
         ];
 
         $this->config   = array_merge($default, $config);
-        $this->template = new AngularTpl($this->config);
         // 初始化模板编译存储器
         $this->storage = new Storage();
+    }
+
+    /**
+     * 配置模板引擎
+     * @access private
+     * @param string|array  $name 参数名
+     * @param mixed         $value 参数值
+     * @return void
+     */
+    public function config($name, $value = null)
+    {
+        if (is_array($name)) {
+            $this->config = array_merge($this->config, $name);
+        } elseif (is_null($value)) {
+            return isset($this->config[$name]) ? $this->config[$name] : null;
+        } else {
+            $this->config[$name] = $value;
+        }
     }
 
     /**
@@ -49,6 +66,7 @@ class Angular
      */
     public function fetch($template, $data = [], $config = [])
     {
+        $this->template = new AngularTpl($this->config);
         // 处理模版地址
         $template = $this->parseTemplatePath($template);
         $request  = Request::instance();
