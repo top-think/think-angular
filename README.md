@@ -10,8 +10,11 @@
 注: 一个标签上可以使用多个模板指令, 指令有前后顺序要求, 所以要注意属性的顺序, 在单标签上使用模板属性时一定要使用<code>/></code>结束, 如 <code>&lt;input php-if="$is_download" type="button" value="下载" />, &lt;img php-if="$article['pic']" src="{&dollar;article.pic}" /></code> 等等, 具体可参考手册.  
 
 ## 安装方法
+如果你是tp5.0.x 请使用 think-angular的1.0.x版本  
+<code>composer require topthink/think-angular:1.0.*</code>  
 
-使用composer安装模版引擎方法: <code>composer require topthink/think-angular</code>
+如果你是tp5.1.x 请使用 think-angular的2.0.x版本
+<code>composer require topthink/think-angular:2.0.*</code>  
 
 ## 开发手册
 看云文档托管平台: http://www.kancloud.cn/shuai/php-angular
