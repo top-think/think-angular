@@ -13,7 +13,8 @@
         "issues": "https://github.com/top-think/think-angular/issues"
     },
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "php-angular/php-angular": "2.0.*"
     },
     "autoload": {
         "classmap": {
