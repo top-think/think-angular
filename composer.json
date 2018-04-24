@@ -2,7 +2,7 @@
     "name": "topthink/think-angular",
     "description": "think angular view engine",
     "homepage": "http://kancloud.cn/shuai/php-angular",
-    "license": "Apache2",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "玩具机器人",
@@ -17,10 +17,7 @@
     },
     "autoload": {
         "classmap": {
-            "think\\view\\driver\\Angular": "drivers/thinkphp5/Angular.php"
-        },
-        "psr-4": {
-            "think\\angular\\": "src/"
+            "think\\view\\driver\\Angular": "src/Driver.php"
         }
     }
 }
