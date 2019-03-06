@@ -112,7 +112,6 @@ class Angular
             return $template;
         }
 
-        dump($template);
         // 默认原样返回
         return $template;
     }
