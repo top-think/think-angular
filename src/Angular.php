@@ -11,7 +11,7 @@
 namespace think\view\driver;
 
 use think\App;
-use PHPAngular\Angular;
+use PHPAngular\Angular as AngularTemplate;
 use think\template\exception\TemplateNotFoundException;
 class Angular
 {
@@ -37,9 +37,6 @@ class Angular
         $this->app = $app;
         $this->config = array_merge($this->config, (array) $config);
 
-        $this->config['tpl_path']
-        $this->config['tpl_cache_path']
-
         if (empty($this->config['tpl_path'])) {
             $this->config['tpl_path'] = $app->getAppPath() . 'view' . DIRECTORY_SEPARATOR;
         }
@@ -48,7 +45,7 @@ class Angular
             $this->config['tpl_cache_path'] = $app->getRuntimePath() . 'temp' . DIRECTORY_SEPARATOR;
         }
 
-        $this->template = new Angular($this->config);
+        $this->template = new AngularTemplate($this->config);
     }
 
     /**
@@ -59,12 +56,7 @@ class Angular
      */
     public function exists(string $template): bool
     {
-        if ('' == pathinfo($template, PATHINFO_EXTENSION)) {
-            // 获取模板文件名
-            $template = $this->parseTemplate($template);
-        }
-
-        return is_file($template);
+        return true;
     }
 
     /**
@@ -74,13 +66,13 @@ class Angular
      * @param  array     $data 模板变量
      * @return void
      */
-    public function fetch(string $template, array $data = []): void
+    public function fetch(string $template, array $data = [])
     {
+
         // 记录视图信息
         $this->app['log']
             ->record('[ VIEW ] ' . $template . ' [ ' . var_export(array_keys($data), true) . ' ]');
-
-        $this->template->fetch($template, $data);
+        $this->template->display($template, $data);
     }
 
     /**
