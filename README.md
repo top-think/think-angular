@@ -11,8 +11,10 @@
 
 ## 安装方法
 
-此分支针对tp5.1.x版本  
-使用composer安装模版引擎方法: <code>composer require topthink/think-angular:2.0.x</code>  
+此分支针对ThinkPHP 6.0.x 版本  
+使用composer安装模版引擎方法: <code>composer require topthink/think-angular:3.0.x</code>  
+
+其他版本参考: https://www.kancloud.cn/shuai/php-angular/151359
 
 ### 模板配置
 
@@ -34,6 +36,20 @@ return [
 ];
 
 ```
+### 模板输出和调用
+```
+// 模板变量赋值
+View::assign('name','ThinkPHP');
+View::assign('email','thinkphp@qq.com');
+// 或者批量赋值
+View::assign([
+    'name'  => 'ThinkPHP',
+    'email' => 'thinkphp@qq.com'
+]);
+// 模板输出, 模板路径不能为空, 必须写全路径
+return View::fetch('index');
+```
+
 
 ## 开发手册
 看云文档托管平台: http://www.kancloud.cn/shuai/php-angular
